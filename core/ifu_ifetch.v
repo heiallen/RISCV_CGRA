@@ -68,8 +68,27 @@ wire ifu_rsp_hsked = (ifu_rsp_valid & ifu_rsp_ready);
 wire ifu_ir_o_hsked = (ifu_o_valid & ifu_o_ready);
 wire pipe_flush_hsked = pipe_flush_req & pipe_flush_ack;
 
+//the rst_flag is the synced version of rst_n
 wire reset_flag_r;
 sirv_gnrl_dffrs #(1) reset_flag_dffrs(1'b0,reset_flag_r,clk,rst_n);
+
+
+//the reset_req valid is set when currently rest_flag is asserting
+//the reset_req valid is clear when currently reset_req is asserting 
+//or currently the flush can be accepted by IFU
+wire reset_req_r;
+wire reset_req_set = (~reset_req_r) & reset_flag_r;
+wire reset_req_clr = reset_req_r & ifu_req_hsked;
+wire reset_req_ena = reset_req_set | reset_req_clr;
+wire reset_req_nxt = reset_req_set | (~reset_req_clr);
+
+sirv_gnrl_dfflr #(1) reset_req_dfflr(reset_req_ena,reset_req_nxt,reset_req_r,clk,rst_n);
+
+wire ifu_reset_req = reset_req_r;
+
+
+
+
 
 
 
