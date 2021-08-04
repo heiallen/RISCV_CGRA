@@ -323,7 +323,7 @@ module e203_exu_decode(
 
   wire [`E203_DECINFO_BJP_WIDTH-1:0] bjp_info_bus;
   assign bjp_info_bus[`E203_DECINFO_GRP    ]    = `E203_DECINFO_GRP_BJP;
-  assign bjp_info_bus[`E203_DECINFO_RV32   ]    = rv32;
+  assign bjp_info_bus[`E203_DECINFO_RV32   ]    = rv32; //是否是32位指令
   assign bjp_info_bus[`E203_DECINFO_BJP_JUMP ]  = dec_jal | dec_jalr;
   assign bjp_info_bus[`E203_DECINFO_BJP_BPRDT]  = i_prdt_taken;
   assign bjp_info_bus[`E203_DECINFO_BJP_BEQ  ]  = rv32_beq | rv16_beqz;
