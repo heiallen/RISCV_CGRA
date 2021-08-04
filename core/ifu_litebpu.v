@@ -51,7 +51,8 @@ wire jalr_rs1xn_dep = dec_i_valid & dec_jalr & dec_jalr_rs1xn & ((~otif_empty) |
 wire jalr_rs1xn_dep_ir_clr = (jalr_rs1xn_dep & otif_empty & (~ir_empty)) & (ir_valid_clr | (~ir_rs1en));
 
 wire rs1xn_rdrf_r;
-wire rs1xn_rdrf_set = (~rs1xn_rdrf_r) & dec_i_valid & dec_jalr & dec_jalr_rs1xn & ((~jalr_rs1xn_dep) | jalr_rs1xn_dep_ir_clr);
+//rs1xn_rdrf_set 为高表示需要读取regfile的读端口，
+wire rs1xn_rdrf_set = (~rs1xn_rdrf_r) & dec_i_valid & dec_jalr & dec_jalr_rs1xn & ((~jalr_rs1xn_dep) | jalr_rs1xn_dep_ir_clr);  
 wire rs1xn_rdrf_clr = rs1xn_rdrf_r;
 wire rs1xn_rdrf_ena = rs1xn_rdrf_set | rs1xn_rdrf_clr;
 wire rs1xn_rdrf_nxt = rs1xn_rdrf_set | (~rs1xn_rdrf_clr);
