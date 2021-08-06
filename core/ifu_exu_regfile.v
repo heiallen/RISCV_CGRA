@@ -19,7 +19,7 @@ wire [`E203_RFREG_NUM-1:0] rf_wen;
 
 genvar i;
 generate
-    for(i=0;i<`E203_RFREG_NUM-1;i=i+1)
+    for(i=0;i<`E203_RFREG_NUM;i=i+1)
         begin:regfile
             if(i==0) begin:rf0
                 assign rf_wen[i] = 1'b0;
